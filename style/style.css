@@ -116,7 +116,7 @@ h1 {
 
 .quiz-part {
   position: relative;
-  margin: 40px auto;
+  padding: 40px 0 10px 0;
   display: none;
   justify-items: center;
   align-items: center;
@@ -198,7 +198,7 @@ h2 {
 }
 
 .result-part {
-  margin: 40px auto;
+  padding: 40px 8px 10px 8px;
   display: none;
   justify-items: center;
   align-items: center;
@@ -319,5 +319,72 @@ table {
 
   100% {
     left: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    max-width: 320px;
+  }
+  .header {
+    width: 250px;
+    height: 150px;
+  }
+  .start-btn {
+    width: 150px;
+    right: 30px;
+  }
+  .question-card {
+    height: 150px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  .options-card {
+    font-size: 16px;
+  }
+  .next-btn {
+    font-size: 18px;
+  }
+
+  .next-btn svg {
+    width: 25px;
+    height: 25px;
+  }
+  .total-review {
+    font-size: 14px;
+  }
+  .total-review td {
+    padding: 8px;
+    font-weight: 600;
+  }
+
+  .question-review {
+    width: 320px;
+    font-size: 14px;
+    height: 350px;
+  }
+  .number-row {
+    width: 10px;
+  }
+  .question-row {
+    width: 150px;
+  }
+
+  .answer-row {
+    width: 80px;
+  }
+  .user-answer-row {
+    width: 80px;
+  }
+  .question-review-table td {
+    padding: 4px;
+    font-size: 14px;
+  }
+  .question-review-table thead {
+    font-size: 14px;
+  }
+  .result-part {
+    padding: 20px 8px 10px 8px;
   }
 }
