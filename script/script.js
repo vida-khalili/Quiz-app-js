@@ -274,6 +274,13 @@ const startQuiz = () => {
 
 const backToHome = () => {
   clearLocalStorage();
+  count = 0;
+  userAnswers = [];
+  userAnswer = userAnswers[count];
+  numberOfCorrectAnswers = 0;
+  numberOfWrongAnswers = 0;
+  numberOfNotAnswered = 0;
+  started = false;
   document.querySelector(".home-page").style.display = "grid";
   document.querySelector(".home-btn").style.display = "none";
   document.querySelector(".quiz-part").style.display = "none";
