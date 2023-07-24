@@ -61,11 +61,83 @@ let quizArray = [
   },
 ];
 
-let userAnswers = [];
 let count = 0;
+let userAnswers = [];
+let userAnswer = userAnswers[count];
 let numberOfCorrectAnswers = 0;
-let numberOfFalseAnswers = 0;
+let numberOfWrongAnswers = 0;
 let numberOfNotAnswered = 0;
+let started = false;
+
+const saveToLocalStorage = () => {
+  localStorage.setItem("localUserAnswers", JSON.stringify(userAnswers));
+  localStorage.setItem("count", JSON.stringify(count));
+  localStorage.setItem(
+    "numberOfCorrectAnswers",
+    JSON.stringify(numberOfCorrectAnswers)
+  );
+  localStorage.setItem(
+    "numberOfWrongAnswers",
+    JSON.stringify(numberOfWrongAnswers)
+  );
+  localStorage.setItem(
+    "numberOfNotAnswered",
+    JSON.stringify(numberOfNotAnswered)
+  );
+  if (localStorage.getItem("started") === null) {
+    localStorage.setItem("started", JSON.stringify(started));
+  }
+};
+
+const clearLocalStorage = () => {
+  localStorage.clear();
+};
+
+const loadFromLocalStorage = () => {
+  if (localStorage.length > 0) {
+    started = JSON.parse(localStorage.getItem("started"));
+    if (started) {
+      count = Number(JSON.parse(localStorage.getItem("count")));
+      userAnswers = JSON.parse(localStorage.getItem("localUserAnswers"));
+      numberOfCorrectAnswers = Number(
+        JSON.parse(localStorage.getItem("numberOfCorrectAnswers"))
+      );
+      numberOfWrongAnswers = Number(
+        JSON.parse(localStorage.getItem("numberOfWrongAnswers"))
+      );
+      numberOfNotAnswered = Number(
+        JSON.parse(localStorage.getItem("numberOfNotAnswered"))
+      );
+      startQuiz();
+      if (localStorage.getItem("index") !== null) {
+        let index = Number(JSON.parse(localStorage.getItem("index")));
+        userAnswer = userAnswers[count];
+        answer = quizArray[count].answer;
+        if (userAnswer === answer) {
+          document.getElementById(
+            `option-card-${index}`
+          ).style.backgroundColor = "var(--secondary)";
+          document.querySelectorAll(".options-card").forEach((node) => {
+            node.disabled = true;
+          });
+        } else {
+          document.getElementById(
+            `option-card-${index}`
+          ).style.backgroundColor = "var(--orange)";
+          let answerIndex = quizArray[count].options.findIndex(
+            (item) => item === answer
+          );
+          document.getElementById(
+            `option-card-${answerIndex}`
+          ).style.backgroundColor = "var(--secondary)";
+          document.querySelectorAll(".options-card").forEach((node) => {
+            node.disabled = true;
+          });
+        }
+      }
+    }
+  }
+};
 
 const generateCards = () => {
   let quizElement = document.querySelector(".quiz-part");
@@ -86,7 +158,7 @@ const generateCards = () => {
 const checkAnswer = (event, index) => {
   event.preventDefault();
   let answer = quizArray[count].answer;
-  let userAnswer = quizArray[count].options[index];
+  userAnswer = quizArray[count].options[index];
   if (userAnswer === answer) {
     document.getElementById(`option-card-${index}`).style.backgroundColor =
       "var(--secondary)";
@@ -97,7 +169,7 @@ const checkAnswer = (event, index) => {
   } else {
     document.getElementById(`option-card-${index}`).style.backgroundColor =
       "var(--orange)";
-    numberOfFalseAnswers++;
+    numberOfWrongAnswers++;
     let answerIndex = quizArray[count].options.findIndex(
       (item) => item === answer
     );
@@ -109,9 +181,13 @@ const checkAnswer = (event, index) => {
     });
   }
   userAnswers.push(userAnswer);
+  clearLocalStorage();
+  saveToLocalStorage();
+  localStorage.setItem("index", JSON.stringify(index));
 };
 
 const showResult = () => {
+  clearLocalStorage();
   let resultPartElement = document.querySelector(".result-part");
   resultPartElement.style.display = "grid";
   let reviewQuestionTable = `<div class="question-review">
@@ -165,7 +241,7 @@ const showResult = () => {
                 <tr>
                     <td>10</td>
                     <td>${numberOfCorrectAnswers}</td>
-                    <td>${numberOfFalseAnswers}</td>
+                    <td>${numberOfWrongAnswers}</td>
                     <td>${numberOfNotAnswered}</td>
                 </tr>
             </table>` + reviewQuestionTable;
@@ -180,6 +256,8 @@ const next = (event) => {
   }
   if (count < 10) {
     generateCards();
+    clearLocalStorage();
+    saveToLocalStorage();
   } else if ((count = 10)) {
     document.querySelector(".quiz-part").style.display = "none";
     showResult();
@@ -187,9 +265,22 @@ const next = (event) => {
 };
 const startQuiz = () => {
   document.querySelector(".home-page").style.display = "none";
+  document.querySelector(".home-btn").style.display = "flex";
   document.querySelector(".quiz-part").style.display = "grid";
+  started = true;
+  localStorage.setItem("started", JSON.stringify(started));
   generateCards();
+};
+
+const backToHome = () => {
+  clearLocalStorage();
+  document.querySelector(".home-page").style.display = "grid";
+  document.querySelector(".home-btn").style.display = "none";
+  document.querySelector(".quiz-part").style.display = "none";
+  document.querySelector(".result-part").style.display = "none";
 };
 
 let startButton = document.querySelector(".start-btn");
 startButton.addEventListener("click", startQuiz);
+let homeButton = document.querySelector(".home-btn");
+homeButton.addEventListener("click", backToHome);

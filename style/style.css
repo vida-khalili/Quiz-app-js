@@ -28,6 +28,36 @@ body {
   font-family: "Quicksand", sans-serif;
   overflow: hidden;
 }
+.home-btn {
+  z-index: 100;
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: var(--orange);
+  width: 120px;
+  height: 25px;
+  font-size: 14px;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent !important;
+  transition: all 200ms ease-in-out;
+}
+.home-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.home-btn:hover {
+  color: var(--secondary);
+  transform: scale(1.01);
+}
+
+.home-btn path {
+  transition: 200ms ease-in-out;
+}
+.home-btn:hover path {
+  fill: var(--secondary);
+}
 .home-page {
   align-items: center;
   justify-items: center;
@@ -116,7 +146,7 @@ h1 {
 
 .quiz-part {
   position: relative;
-  padding: 40px 0 10px 0;
+  padding: 78px 0 10px 0;
   display: none;
   justify-items: center;
   align-items: center;
@@ -128,7 +158,7 @@ h1 {
   position: relative;
   background-color: white;
   width: 300px;
-  height: 250px;
+  height: 230px;
   padding: 16px 24px;
   display: flex;
   align-items: center;
@@ -178,6 +208,7 @@ h2 {
 }
 
 .next-btn {
+  z-index: 100;
   position: absolute;
   bottom: -50px;
   right: 20px;
@@ -356,7 +387,13 @@ table {
     width: 25px;
     height: 25px;
   }
+
+  .score-card {
+    height: 120px;
+  }
+
   .total-review {
+    margin-top: 12px;
     font-size: 14px;
   }
   .total-review td {
@@ -365,9 +402,11 @@ table {
   }
 
   .question-review {
+    bottom: unset;
+    top: 280px;
     width: 320px;
     font-size: 14px;
-    height: 360px;
+    max-height: 360px;
   }
   .number-row {
     width: 10px;
@@ -390,7 +429,7 @@ table {
     font-size: 14px;
   }
   .result-part {
-    padding: 20px 8px 10px 8px;
+    padding: 48px 8px 10px 8px;
   }
 }
 
