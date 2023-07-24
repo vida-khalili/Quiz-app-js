@@ -118,12 +118,12 @@ const showResult = () => {
                 <table class="question-review-table">
                     <thead>
                         <tr>
-                            <td class="number-row">No.</td>
-                            <td class="question-row">
+                            <td class="number-row" style="color:black; font-weight:600">No.</td>
+                            <td class="question-row" style="color:black; font-weight:600">
                                 Question
                             </td>
-                            <td class="answer-row">Answer</td>
-                            <td class="user-answer-row">Your Answer</td>
+                            <td class="answer-row" style="color:black; font-weight:600">Answer</td>
+                            <td class="user-answer-row" style="color:black; font-weight:600">Your Answer</td>
                         </tr>
                     </thead>`;
   quizArray.map((quizItem) => {
@@ -131,9 +131,15 @@ const showResult = () => {
       reviewQuestionTable +
       `<tr>
   <td class="number-row">${quizItem.id}</td>
-  <td class="question-row">${quizItem.question}</td>
+  <td class="question-row"><p>${quizItem.question}</p></td>
   <td class="answer-row">${quizItem.answer}</td>
-  <td class="user-answer-row">${userAnswers[quizItem.id - 1]}</td>
+  <td class="user-answer-row" style="color:${
+    quizItem.answer === userAnswers[quizItem.id - 1]
+      ? "#5db3c1"
+      : userAnswers[quizItem.id - 1] === "-"
+      ? "white"
+      : "#ffbd5c"
+  }">${userAnswers[quizItem.id - 1]}</td>
 </tr>`;
   });
   reviewQuestionTable =

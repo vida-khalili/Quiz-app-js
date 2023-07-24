@@ -240,7 +240,7 @@ table {
   font-family: "Oswald", sans-serif;
 }
 .total-review td {
-  padding: 16px;
+  padding: 8px 16px;
   font-weight: 600;
 }
 
@@ -248,7 +248,7 @@ table {
   padding: 16px 4px;
   position: fixed;
   overflow-y: scroll;
-  bottom: 40px;
+  bottom: 75px;
   width: 500px;
   height: 380px;
   background-color: #5db3c136;
@@ -263,23 +263,27 @@ table {
   width: 20px;
 }
 .question-row {
-  width: 280px;
+  width: 240px;
+}
+.question-row p {
+  word-break: normal;
+  line-height: 20px;
 }
 
 .answer-row {
-  width: 80px;
+  width: 120px;
 }
 .user-answer-row {
   width: 120px;
 }
 .question-review-table thead {
   font-size: 16px;
-  font-weight: 800;
+  border-bottom: 1px solid var(--primary);
 }
 
 .question-review-table td {
   padding: 8px;
-
+  font-weight: 500;
   border-right: 1px solid var(--primary);
 }
 .question-review-table td:nth-last-child(1) {
@@ -331,6 +335,7 @@ table {
     height: 150px;
   }
   .start-btn {
+    bottom: 210px;
     width: 150px;
     right: 30px;
   }
@@ -362,7 +367,7 @@ table {
   .question-review {
     width: 320px;
     font-size: 14px;
-    height: 350px;
+    height: 360px;
   }
   .number-row {
     width: 10px;
@@ -386,5 +391,96 @@ table {
   }
   .result-part {
     padding: 20px 8px 10px 8px;
+  }
+}
+
+@media screen and (min-height: 900px) {
+  .container {
+    margin-top: 40px;
+    max-width: 900px;
+    height: 900px;
+  }
+  .header {
+    width: 400px;
+    height: 200px;
+  }
+  .start-btn {
+    bottom: unset;
+    top: 270px;
+    width: 200px;
+    right: 49px;
+  }
+  .question-card {
+    width: 400px;
+    height: 300px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  .question-count {
+    font-size: 16px;
+    right: 20px;
+    bottom: 20px;
+  }
+  .options-card {
+    width: 400px;
+    font-size: 20px;
+  }
+  .next-btn {
+    font-size: 26px;
+    right: 210px;
+  }
+
+  .next-btn svg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .result-part {
+    position: relative;
+  }
+
+  .score-card {
+    width: 400px;
+    font-size: 28px;
+  }
+  .total-review {
+    font-size: 16px;
+  }
+  .total-review td {
+    padding: 8px;
+    font-weight: 600;
+  }
+
+  .question-review {
+    bottom: unset;
+    top: 350px;
+    width: 900px;
+    font-size: 16px;
+    height: auto;
+  }
+  /* .number-row {
+    width: 20px;
+  }
+  .question-row {
+    width: 150px;
+  }
+
+  .answer-row {
+    width: 80px;
+  }
+  .user-answer-row {
+    width: 80px;
+  } */
+  .question-review-table td {
+    padding: 8px;
+    font-size: 16px;
+  }
+
+  .result-part {
+    padding: 20px 8px 10px 8px;
+  }
+  .author {
+    font-size: 16px;
   }
 }
