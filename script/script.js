@@ -140,8 +140,9 @@ const loadFromLocalStorage = () => {
 };
 
 const generateCards = () => {
-  let quizElement = document.querySelector(".quiz-part");
-  let quizCards = `<div class="question-card">
+  if (count < 10) {
+    let quizElement = document.querySelector(".quiz-part");
+    let quizCards = `<div class="question-card">
                 <h2>${quizArray[count].question}</h2>
                 <p class="question-count">${quizArray[count].id} of 10</p>
             </div>
@@ -152,7 +153,10 @@ const generateCards = () => {
             <button class="btn next-btn" type="button" onclick="next(event)">Next <svg fill="#000000" viewBox="0 0 24 24" id="next" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path id="secondary" d="M17,12,5,21V3Z" style="fill: #2ca9bc; stroke-width: 2;"></path><path id="primary" d="M17,12,5,21V3Z" style="fill: none; stroke: #ffffff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></g></svg></button>
             `;
 
-  quizElement.innerHTML = quizCards;
+    quizElement.innerHTML = quizCards;
+  } else {
+    showResult();
+  }
 };
 
 const checkAnswer = (event, index) => {
@@ -187,7 +191,8 @@ const checkAnswer = (event, index) => {
 };
 
 const showResult = () => {
-  clearLocalStorage();
+  document.querySelector(".quiz-part").style.display = "none";
+  document.querySelector(".home-btn").style.display = "flex";
   let resultPartElement = document.querySelector(".result-part");
   resultPartElement.style.display = "grid";
   let reviewQuestionTable = `<div class="question-review">
@@ -256,16 +261,14 @@ const next = (event) => {
   }
   if (count < 10) {
     generateCards();
-    clearLocalStorage();
-    saveToLocalStorage();
   } else if ((count = 10)) {
-    document.querySelector(".quiz-part").style.display = "none";
     showResult();
   }
+  clearLocalStorage();
+  saveToLocalStorage();
 };
 const startQuiz = () => {
   document.querySelector(".home-page").style.display = "none";
-  document.querySelector(".home-btn").style.display = "flex";
   document.querySelector(".quiz-part").style.display = "grid";
   started = true;
   localStorage.setItem("started", JSON.stringify(started));
@@ -281,6 +284,7 @@ const backToHome = () => {
   numberOfWrongAnswers = 0;
   numberOfNotAnswered = 0;
   started = false;
+  saveToLocalStorage();
   document.querySelector(".home-page").style.display = "grid";
   document.querySelector(".home-btn").style.display = "none";
   document.querySelector(".quiz-part").style.display = "none";
